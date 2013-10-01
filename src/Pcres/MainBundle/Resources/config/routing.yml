@@ -1,0 +1,21 @@
+_main:
+    path:  /
+    defaults: { _controller: PcresMainBundle:Main:index }
+
+_reserve:
+    path:  /reserve
+    defaults: { _controller: PcresMainBundle:Main:reserve }
+    methods:  [GET]
+
+_test:
+     path:  /test
+     defaults: { _controller: PcresMainBundle:Main:test }
+     methods:  [GET]
+
+_admin:
+     path:  /admin
+     defaults: { _controller: PcresMainBundle:Admin:index }
+
+_admin_pc:
+          path:  /admin/pc
+          defaults: { _controller: PcresMainBundle:Admin:pc }

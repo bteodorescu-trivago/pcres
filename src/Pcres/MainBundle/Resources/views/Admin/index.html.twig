@@ -1,0 +1,137 @@
+{% extends "PcresMainBundle::layout.html.twig" %}
+{% block javascripts %}
+    <script src="/bootstrap/js/bootstrap.min.js  "></script>
+    <script src="/bootstrap/js/jquery.min.js  "></script>
+    <script src="/bootstrap/js/bootstrap-modal.js  "></script>
+    <script src="/bundles/pcresmain/js/admin.js  "></script>
+{% endblock %}
+
+
+  {% block jumbotron %} Admin Area {% endblock %}
+
+
+
+{% block content %}
+
+<h3>PCs</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th> PC Name </th>
+            <th> PC Area</th>
+            <th> Action </th>
+            <th> Action </th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for key, pc in pcs %}
+            <tr>
+                <td> {{ pc.name|e }} </td>
+                <td> {{ pc.area.name }} </td>
+                <td> <a href="{{ path('_admin_pc')}}?id={{ pc.id }}"> Edit </a> </td>
+                <td> <a href="{{ path('_admin_pc')}}?id={{ pc.id }}"> Delete </a> </td>
+
+            </tr>
+        {% else %}
+            <tr><td colspan="4" > <p>Sorry, no PCs in the database!</p></td></tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    <!-- Modal for PC entity-->
+    <div id="PcModal" class="modal hide fade in" style="display: none; ">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+        </div>
+        <div id="PcModalContent" class="modal-body">
+
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-success">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+    <p><a id="add-new-pc" data-toggle="modal"  class="btn btn-primary">Add new pc</a></p>
+    <!-- Modal -->
+
+
+
+
+    <br/><br/><br/>
+
+
+
+
+
+     <h3>PC Areas</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Action </th>
+            <th> Action </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for key, pcArea in pcAreas %}
+            <tr>
+                <td> {{ pcArea.name|e }} </td>
+
+                <td> <a href="{{ path('_admin_pc')}}?id={{ pcArea.id }}"> Edit </a> </td>
+                <td> <a href="{{ path('_admin_pc')}}?id={{ pcArea.id }}"> Edit </a> </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4" > <p>Sorry, no PCs in the database!</p></td></tr>
+        {% endfor %}
+        </tbody>
+
+
+    </table>
+
+    <!-- Modal for PC Area entity-->
+    <div id="PcAreaModal" class="modal hide fade in" style="display: none; ">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+        </div>
+        <div class="modal-body">
+            <form action="{{ path('_main') }}" method="post" {{ form_enctype(formPcArea) }} class="form-horizontal">
+                {{ form_errors(formPcArea) }}
+
+                {% for child in formPcArea.children %}
+
+                    <div class="control-group">
+                        <label class="control-label" for="input{{ child.vars.label }}">{{ child.vars.label }}</label>
+                        <div class="controls">
+                            {{ form_widget(child) }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {{ form_rest(formPcArea) }}
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-success">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+    <p><a data-toggle="modal" href="#PcAreaModal" class="btn btn-primary">Add new PC Area</a></p>
+    <!-- Modal -->
+
+
+
+
+
+
+{% endblock %}
+
+

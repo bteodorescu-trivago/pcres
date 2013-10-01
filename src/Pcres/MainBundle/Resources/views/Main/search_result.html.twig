@@ -1,0 +1,73 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'PcresMainBundle::layout.html.twig' %}
+
+
+{% block jumbotron %}
+    {% if search_result.alternative == false %}
+        Available computers
+    {% else %}
+        Sorry, no PCs are available for that timeslot.
+    {% endif %}
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    {% if search_result.alternative == false %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> PC Name </th>
+                    <th> PC Area</th>
+                    <th> </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for pc in search_result.pcs %}
+                    <tr>
+                        <td> {{ pc.name|e }} </td>
+                        <td> {{ pc.area.name }} </td>
+                        <td> <a href="reserve?email={{ search_result.email }}&id={{ pc.id }}&day={{ search_result.day }}&start_hour={{ search_result.start_hour }}&end_hour={{ search_result.end_hour }}">[RESERVE]</a> </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        These alternative slots are available:<br/><br/>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th> PC Name </th>
+                <th> PC Area</th>
+                <th> Time inteval</th>
+                <th> </th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for key, pc in search_result.pcs %}
+                <tr>
+                    <td> {{ pc.name|e }} </td>
+                    <td> {{ pc.area.name }} </td>
+                    <td> {{ search_result.available_hours[key].start_hour }}  -  {{ search_result.available_hours[key].end_hour }} </td>
+                    <td> <a href="reserve?email={{ search_result.email }}&id={{ pc.id }}&day={{ search_result.day }}&start_hour={{ search_result.available_hours[key].start_hour }}&end_hour={{ search_result.available_hours[key].end_hour }}">[RESERVE]</a> </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4" > <p>Sorry, no alternatives available!</p></td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+
+{% endblock %}
+
+

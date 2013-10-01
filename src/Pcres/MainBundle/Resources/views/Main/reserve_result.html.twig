@@ -1,0 +1,28 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'PcresMainBundle::layout.html.twig' %}
+
+{% block title %}Pc Reservation{% endblock%}
+
+{% block content %}
+
+    {% if reserve_result == '1' %}
+        Your reservation has been made. Please read your email.
+    {% elseif reserve_result == '0'%}
+        There has been an error when saving data.<br/><br/>
+        Could be that a reservation on this time interval already exists
+    {% elseif reserve_result == 'e1' %}
+        The PC id does not exists in database
+    {% elseif reserve_result == 'e2' %}
+        The inserted values are wrong:  start hour >= end hour.<br/>
+    {% elseif reserve_result == 'e3' %}
+        The inserted value is wrong:  start hour < 8.<br/>
+    {% elseif reserve_result == 'e4' %}
+        The inserted value is wrong:  end hour > 18.<br/>
+    {% endif %}
+
+
+
+
+{% endblock %}
+
+

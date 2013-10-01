@@ -1,0 +1,92 @@
+{% block head %}
+    <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css ">
+    <style type="text/css">
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+
+            /* Custom container */
+        .container-narrow {
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .container-narrow > hr {
+            margin: 30px 0;
+        }
+
+            /* Main marketing message and sign up button */
+        .jumbotron {
+            margin: 60px 0;
+            text-align: center;
+        }
+        .jumbotron h1 {
+            font-size: 72px;
+            line-height: 1;
+        }
+        .jumbotron .btn {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+
+            /* Supporting marketing content */
+        .marketing {
+            margin: 60px 0;
+        }
+        .marketing p + h4 {
+            margin-top: 28px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/bootstrap/js/bootstrap.min.js  "></script>
+    <script src="/bootstrap/js/jquery.min.js  "></script>
+    <script src="/bootstrap/js/bootstrap-modal.js  "></script>
+{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container-narrow">
+        <div class="masthead">
+            <ul class="nav nav-pills pull-right">
+                <li {% if app.request.get('_route') == '_main' %} class="active" {% endif %} > <a href="{{ path('_main') }}">Search</a></li>
+                <li {% if app.request.get('_route') == '_admin' %} class="active" {% endif %}> <a href="{{ path('_admin') }}">Admin</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+            <h3 class="muted">PC Reservation</h3>
+        </div>
+
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="flash-message">
+                <em>Notice</em>: {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+
+        <div class="jumbotron">
+            <h3>{% block jumbotron %}Please use the form to see available computers {% endblock %}</h3>
+        </div>
+
+        <hr>
+
+
+        {% block content %}{% endblock %}
+    </div>
+
+    {% if code is defined %}
+        <h2>Code behind this page</h2>
+        <div class="block">
+            <div class="symfony-content">{{ code|raw }}</div>
+        </div>
+    {% endif %}
+
+
+
+{% endblock %}
+

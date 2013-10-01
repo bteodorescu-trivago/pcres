@@ -1,0 +1,30 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'PcresMainBundle::layout.html.twig' %}
+
+
+
+{% block content %}
+
+    {% block jumbotron %}Please use the form to see available computers {% endblock %}
+
+    <div class="row-fluid marketing">
+        <div class="span12">
+
+        <form action="{{ path('_main') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            {{ form_errors(form) }}
+            {% for child in form.children %}
+
+                <div class="control-group">
+                    <label class="control-label" for="input{{ child.vars.label }}">{{ child.vars.label }}</label>
+                    <div class="controls">
+                        {{ form_widget(child) }}
+                    </div>
+                </div>
+            {% endfor %}
+            <input class="btn btn-primary" style="margin-left: 180px;" type="submit" value="Check Availability" />
+        </form>
+
+        </div>
+    </div>
+
+{% endblock %}

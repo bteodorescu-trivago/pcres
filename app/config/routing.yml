@@ -1,0 +1,14 @@
+PcresMainBundle:
+    resource: "@PcresMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+    pattern:   /login
+    defaults:  { _controller: PcresMainBundle:Security:login }
+
+login_check:
+    pattern:   /admin/login_check
+
+logout:
+    pattern:   /logout
+    defaults:  { _controller: PcresMainBundle:Security:logout }

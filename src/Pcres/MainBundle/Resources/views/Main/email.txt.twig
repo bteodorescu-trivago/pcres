@@ -1,0 +1,8 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contactEmail.txt.twig #}
+Hello,
+
+A reservation for PC {{ mailBody.pc_name }}, area {{ mailBody.pc_area }}, was made on day {{ mailBody.start_time|date('Y-m-d') }}  starting from {{ mailBody.start_time|date('H:i') }}  to {{ mailBody.end_time|date('H:i') }}.
+
+Reservation was made at {{ "now" | date("Y-m-d H:i") }}.
+
+Have a nice day!
